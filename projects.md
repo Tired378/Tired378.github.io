@@ -5,13 +5,9 @@ title: Projects
 
 # Projects
 
-### [JenkinsChain](https://github.com/mattiacarini/JenkinsChain)
-> Developer tool for automating deployment pipelines.
-
-### [AnotherApp](https://github.com/mattiacarini/AnotherApp)
-> Productivity app with integrations for macOS and Windows.
+### [Movie Night](https://github.com/Tired378/movie-night-releases)
+> A Movie/Series selection app for couples.
 
 ### App Downloads
 If you want to grab the latest versions of my apps, you can find them on GitHub Releases:
-- [JenkinsChain Releases](https://github.com/mattiacarini/JenkinsChain/releases)
-- [AnotherApp Releases](https://github.com/mattiacarini/AnotherApp/releases)
+- [Latest Movie Night Release](https://github.com/Tired378/movie-night-releases/releases/latest)
