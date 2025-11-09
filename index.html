@@ -6,19 +6,24 @@
     <meta name="description" content="Professional portfolio and personal projects">
     <title>Portfolio | Mattia Carini</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/icon/favicon.svg" />
-    <link rel="shortcut icon" href="/icon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png" />
-    <link rel="manifest" href="/icon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="assets/icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <link rel="shortcut icon" href="assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="assets/icons/site.webmanifest" />
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Welcome to My Portfolio</h1>
-            <p class="subtitle">Software Developer & App Creator</p>
+            <h1 data-i18n="title">Welcome to My Portfolio</h1>
+            <p class="subtitle" data-i18n="subtitle">Software Developer & App Creator</p>
+            
+            <!-- Language Toggle -->
+            <button id="lang-toggle" class="lang-toggle" aria-label="Switch language">
+                <span class="lang-text">IT</span>
+            </button>
+
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                <!-- Sun (shown in dark mode) -->
                 <svg class="sun" aria-hidden="true" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="5" fill="currentColor"/>
                     <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -32,7 +37,6 @@
                         <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
                     </g>
                 </svg>
-                <!-- Moon (shown in light mode) -->
                 <svg class="moon" aria-hidden="true" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a9.5 9.5 0 1 0 11.5 11.5Z"/>
                 </svg>
@@ -41,10 +45,9 @@
 
         <main>
             <section class="about">
-                <h2>About Me</h2>
-                <p>
-                    Hi, I'm Mattia Carini! As a Software Engineer with a strong academic foundation in Computer Science and Engineering, I am passionate about designing and devel‑
-                    oping reliable, scalable software solutions. My professional experience at Reply has strengthened my expertise in back‑end development, cloud
+                <h2 data-i18n="aboutTitle">About Me</h2>
+                <p data-i18n="aboutText">
+                    Hi, I'm Mattia Carini! As a Software Engineer with a strong academic foundation in Computer Science and Engineering, I am passionate about designing and developing reliable, scalable software solutions. My professional experience at Reply has strengthened my expertise in back‑end development, cloud
                     infrastructure, and automation, while projects like JenkinsChain and Movie Night reflect my drive for innovation and full‑stack proficiency. I am
                     deeply motivated by problem‑solving, continuous learning, and the creation of tools that simplify complex processes. I thrive in collaborative
                     environments where technical excellence and creativity come together to deliver meaningful impact.
@@ -52,32 +55,30 @@
             </section>
 
             <section class="skills">
-                <h2>Skills & Expertise</h2>
+                <h2 data-i18n="skillsTitle">Skills & Expertise</h2>
                 <ul>
-                    <li>Software Development</li>
-                    <li>Application Design</li>
-                    <li>Problem Solving</li>
+                    <li data-i18n="skill1">Software Development</li>
+                    <li data-i18n="skill2">Application Design</li>
+                    <li data-i18n="skill3">Problem Solving</li>
                 </ul>
             </section>
 
             <section class="projects">
-                <h2>My Applications</h2>
-                <p>
+                <h2 data-i18n="projectsTitle">My Applications</h2>
+                <p data-i18n="projectsText">
                     Download latest versions of my applications:
                 </p>
                 <div class="download-links">
-                    <!-- <a href="https://github.com/Tired378/releases/releases" class="btn" target="_blank" rel="noopener noreferrer">
-                        📦 View All Releases
-                    </a> -->
                     <a href="https://github.com/Tired378/movie-night-releases/releases/latest" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        ⬇️ Latest Movie Night Release
+                        <img src="assets/imgs/movie-night.png" alt="" class="icon" width="20" height="20" loading="lazy" decoding="async">
+                        Movie Night
                     </a>
                 </div>
             </section>
 
             <section class="contact">
-                <h2>Get in Touch</h2>
-                <p>
+                <h2 data-i18n="contactTitle">Get in Touch</h2>
+                <p data-i18n="contactText">
                     Connect with me on GitHub to see more of my work:
                 </p>
                 <div class="social-links">
@@ -98,15 +99,15 @@
         </main>
 
         <footer>
-            <p>&copy; 2025 Mattia Carini. All rights reserved.</p>
+            <p>&copy; 2025 Mattia Carini. <span data-i18n="footer">All rights reserved.</span></p>
         </footer>
     </div>
 
+    <script src="translations.js"></script>
     <script>
+        // Theme toggle
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
-        
-        // Check for saved theme preference or default to light mode
         const currentTheme = localStorage.getItem('theme') || 'light';
         html.setAttribute('data-theme', currentTheme);
         
@@ -114,6 +115,35 @@
             const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
+        });
+
+        // Language toggle
+        const langToggle = document.getElementById('lang-toggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = localStorage.getItem('language') || 'en';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            html.setAttribute('lang', lang);
+            localStorage.setItem('language', lang);
+            
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update toggle button text
+            langText.textContent = lang === 'en' ? 'IT' : 'EN';
+        }
+        
+        // Initialize language
+        setLanguage(currentLang);
+        
+        langToggle.addEventListener('click', () => {
+            setLanguage(currentLang === 'en' ? 'it' : 'en');
         });
     </script>
 </body>
