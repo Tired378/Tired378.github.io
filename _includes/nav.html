@@ -1,8 +1,0 @@
-<nav class="site-nav" role="navigation">
-  {% for item in site.data.nav %}
-    {% assign current = page.url == item.url %}
-    <a href="{{ item.url | relative_url }}" class="btn{% if current %} btn-current{% endif %}">
-      {{ item.title }}
-    </a>
-  {% endfor %}
-</nav>
